@@ -6,5 +6,7 @@
 </script>
 
 <ParaglideJS {i18n}>
-	{@render children()}
+	<div class="md:container md:mx-auto">
+		{@render children()}
+	</div>
 </ParaglideJS>
