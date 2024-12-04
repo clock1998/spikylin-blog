@@ -2,19 +2,43 @@
 	import { i18n } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import '../app.css';
-	import Navbar from './navbar.svelte';
+	import Navbar from '$lib/components/navbar.svelte';
 	let { children } = $props();
 </script>
 
 <ParaglideJS {i18n}>
-	<div class="grid h-screen grid-rows-[auto_1fr_auto]">
+	<div class="h-screen"> 
 		<Navbar></Navbar>
-		<div class="grid grid-cols-1 md:grid-cols-3 md:w-5/6  md:mx-auto">
-			<main class="space-y-4 bg-green-500 p-4 md:col-span-2">
-				{@render children()}
-			</main>
-			<aside class="bg-yellow-500 p-4 sticky top-0 h-[calc(100vh-100px)]">(sidebar)</aside>
-		</div>
-		<footer class="p-4">(footer)</footer>
+		<div class="drawer lg:drawer-open">
+			<input id="my-drawer" type="checkbox" class="drawer-toggle" />
+			<div class="drawer-content md:h-[85vh]">
+				<label for="my-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost md:hidden">
+					<svg
+					  xmlns="http://www.w3.org/2000/svg"
+					  fill="none"
+					  viewBox="0 0 24 24"
+					  class="inline-block h-6 w-6 stroke-current">
+					  <path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M4 6h16M4 12h16M4 18h16"></path>
+					</svg>
+				</label>
+				<div class="p-4">
+					{@render children()}
+				</div>
+			</div>
+			<div class="drawer-side z-10 md:h-[85vh]">
+			  <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+			  <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+				<!-- Sidebar content here -->
+				<li><a href="/">Sidebar Item 1</a></li>
+				<li><a href="/">Sidebar Item 2</a></li>
+			  </ul>
+			</div>
+		  </div>
+		  <footer class="p-4 text-center">(footer)</footer>
 	</div>
+	
 </ParaglideJS>
