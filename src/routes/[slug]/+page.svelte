@@ -16,11 +16,10 @@
 		<p>Published at {formatDate(data.meta.date)}</p>
 	</hgroup>
 
-	<div >
+	<div class="flex gap-1">
 		{#each data.meta.categories as category}
-			<span class="surface-4">&num;{category}</span>
+            <button class="btn btn-sm btn-neutral"><span class="surface-4">&num;{category}</span></button>
 		{/each}
 	</div>
-
     <data.content />
 </article>
