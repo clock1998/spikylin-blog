@@ -1,14 +1,29 @@
 <script lang="ts">
-    // import resolveConfig from 'tailwindcss/resolveConfig'
-    // import tailwindConfig from '../../../tailwind.config.ts'
+    import resolveConfig from 'tailwindcss/resolveConfig'
+    import tailwindConfig from '../../../tailwind.config'
+	import { onMount } from 'svelte';
 
-    // const {daisyui} = resolveConfig(tailwindConfig)
-    // const color = daisyui.themes
-    // localStorage.setItem('theme', JSON.stringify(isdark));
+    const {daisyui} = resolveConfig(tailwindConfig)
+    const themes = daisyui.themes
+    let currentTheme = $state('');
+    
+    onMount(()=>{
+        let theme = localStorage.getItem('theme')
+        if (theme){
+            currentTheme = JSON.parse(theme)
+        }
+    })
+
+    function onclick(event: MouseEvent){
+        let element: HTMLInputElement = event.target as HTMLInputElement;
+        console.log(element.checked)
+        currentTheme = element.value
+        localStorage.setItem('theme', JSON.stringify(element.value));
+    }
 </script>
 <div class="dropdown dropdown-end ">
     <div tabindex="0" role="button" class="btn m-1">
-      Theme
+      {currentTheme}
       <svg
         width="12px"
         height="12px"
@@ -18,46 +33,19 @@
         <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
       </svg>
     </div>
+    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
     <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-[1] w-52 p-2 shadow-2xl">
-      <li>
-        <input
-          type="radio"
-          name="theme-dropdown"
-          class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-          aria-label="Default"
-          value="default" />
-      </li>
-      <li>
-        <input
-          type="radio"
-          name="theme-dropdown"
-          class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-          aria-label="Retro"
-          value="retro" />
-      </li>
-      <li>
-        <input
-          type="radio"
-          name="theme-dropdown"
-          class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-          aria-label="Cyberpunk"
-          value="cyberpunk" />
-      </li>
-      <li>
-        <input
-          type="radio"
-          name="theme-dropdown"
-          class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-          aria-label="Valentine"
-          value="valentine" />
-      </li>
-      <li>
-        <input
-          type="radio"
-          name="theme-dropdown"
-          class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-          aria-label="Aqua"
-          value="aqua" />
-      </li>
+        {#each themes as theme, index}
+            <li>
+                <input
+                id={`${index}`}
+                type="radio"
+                name="theme-dropdown"
+                class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+                aria-label="{theme}"
+                value="{theme}"
+                onclick={onclick} />
+            </li>
+        {/each}
     </ul>
   </div>

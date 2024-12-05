@@ -15,6 +15,6 @@
         <p>{formatDate(post.date)}</p>
         <p>{post.description}</p>
     </div>
-{/each}
+    {/each}
 </div>
 
