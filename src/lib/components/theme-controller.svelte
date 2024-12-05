@@ -11,12 +11,20 @@
         let theme = localStorage.getItem('theme')
         if (theme){
             currentTheme = JSON.parse(theme)
+            // Find and check the corresponding input element
+            const radioInputs = document.querySelectorAll<HTMLInputElement>(
+                'input[name="theme-dropdown"]'
+            );
+            radioInputs.forEach((input) => {
+                if (input.value === currentTheme) {
+                    input.checked = true;
+                }
+            });
         }
     })
 
     function onclick(event: MouseEvent){
         let element: HTMLInputElement = event.target as HTMLInputElement;
-        console.log(element.checked)
         currentTheme = element.value
         localStorage.setItem('theme', JSON.stringify(element.value));
     }
@@ -48,4 +56,4 @@
             </li>
         {/each}
     </ul>
-  </div>
+</div>
