@@ -38,4 +38,4 @@ steps:
     tags: $(tag)
 - task: CmdLine@2
   inputs:
-    script: 'docker builder prune'
+    script: 'docker builder prune -f'
