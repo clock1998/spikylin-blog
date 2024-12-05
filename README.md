@@ -1,18 +1,8 @@
-# sv
+# Blog
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Everything you need to build a your blog, powered by [`sv`](https://github.com/sveltejs/cli).
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
+The Blog is built using SvelteKit Static Sites generator, Tailwindcss, and DaisyUI.
 
 ## Developing
 
@@ -24,6 +14,11 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
+
+## Configuration 
+
+### Theme
+There is a themes.ts file under src/lib. Change the array to include or exclude more themes
 
 ## Building
 
