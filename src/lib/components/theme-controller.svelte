@@ -29,9 +29,11 @@
         localStorage.setItem('theme', JSON.stringify(element.value));
     }
 </script>
-<div class="dropdown dropdown-end ">
-    <div tabindex="0" role="button" class="btn m-1">
-      {currentTheme}
+<div class="dropdown dropdown-end">
+    <div tabindex="0" role="button" class="btn m-1 flex justify-end w-40">
+        <div class="w-10/12">
+            {currentTheme}
+        </div> 
       <svg
         width="12px"
         height="12px"
