@@ -10,14 +10,4 @@ export default defineConfig({
 			outdir: './src/lib/paraglide'
 		})
 	],
-	server: {
-		fs: {
-		  allow: [
-			// search up for workspace root
-			searchForWorkspaceRoot(process.cwd()),
-			// your custom rules
-			'./tailwind.config.ts',
-		  ],
-		},
-	  },
 });

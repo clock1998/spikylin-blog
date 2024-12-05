@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 import daisyui from "daisyui"
 import typography from "@tailwindcss/typography"
+import { themes } from './src/lib/themes';
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
@@ -13,18 +14,6 @@ export default {
 		daisyui
 	],
 	daisyui:{
-		themes: [
-			"light",
-			"dark",
-			"cupcake",
-			"bumblebee",
-			"emerald",
-			"corporate",
-			"synthwave",
-			"retro",
-			"cyberpunk",
-			"valentine",
-			"halloween",
-		  ],
+		themes: themes
 	}
 } satisfies Config;

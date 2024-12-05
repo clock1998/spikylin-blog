@@ -3,6 +3,7 @@
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import '../app.css';
 	import Navbar from '$lib/components/navbar.svelte';
+	import Category from '$lib/components/category.svelte';
 	let { children } = $props();
 </script>
 
@@ -31,14 +32,9 @@
 			</div>
 			<div class="drawer-side z-10 md:h-[85vh]">
 			  <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-			  <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-				<!-- Sidebar content here -->
-				<li><a href="/">Sidebar Item 1</a></li>
-				<li><a href="/">Sidebar Item 2</a></li>
-			  </ul>
+				<Category></Category>
 			</div>
 		  </div>
 		  <footer class="p-4 text-center">(footer)</footer>
 	</div>
-	
 </ParaglideJS>
