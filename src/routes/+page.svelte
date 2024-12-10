@@ -2,16 +2,27 @@
 	import { formatDate } from '$lib/utils'
 	import * as config from '$lib/config'
     import * as m from '$lib/paraglide/messages.js'
+	import { availableLanguageTags, languageTag } from '$lib/paraglide/runtime.js';
+	import { onMount } from 'svelte';
+	import type { Post } from '$lib/types.js';
 
 	let { data } = $props()
+    let posts:Post[] = $state([]);
+    onMount(()=>{
+        if(languageTag() == availableLanguageTags[1]){
+            posts = data.posts.filter(n=>n.slug.split(".")[1] === "fr")
+        }
+        else{
+            posts = data.posts.filter(n=>n.slug.split(".")[1] !== "fr")
+        }
+    });
 </script>
 
 <svelte:head>
 	<title>{config.title}</title>
 </svelte:head>
-<h1>{m.hello_world()}</h1>
 <div class="flex gap-4">
-    {#each data.posts as post}
+    {#each posts as post}
         <a class="link" href={post.slug}>
             <div class="card bg-base-300 w-96 shadow-xl">
                 <div class="card-body">
