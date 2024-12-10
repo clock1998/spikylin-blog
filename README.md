@@ -14,6 +14,9 @@ npm run dev
 # or start the server and open the app in a new browser tab
 npm run dev -- --open
 ```
+## Self-hosting
+A Dockerfile is under the root directory of the project.
+You can find a YAML file under the root directory. This file is for Azure DevOps.
 
 ## Configuration 
 

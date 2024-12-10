@@ -8,13 +8,17 @@
 <svelte:head>
 	<title>{config.title}</title>
 </svelte:head>
-<div class="flex ">
+<div class="flex gap-4">
     {#each data.posts as post}
-    <div class="w-full flex flex-col">
-        <h2><a class="link" href={post.slug}>{post.title}</a></h2>
-        <p>{formatDate(post.date)}</p>
-        <p>{post.description}</p>
-    </div>
+        <a class="link" href={post.slug}>
+            <div class="card bg-base-300 w-96 shadow-xl">
+                <div class="card-body">
+                <h2 class="card-title">{post.title}</h2>
+                <p>{post.description}</p>
+                <p>{formatDate(post.date)}</p>
+                </div>
+            </div>
+        </a>
     {/each}
 </div>
 
