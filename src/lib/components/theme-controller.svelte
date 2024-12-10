@@ -27,7 +27,7 @@
     }
 </script>
 <div class="dropdown dropdown-end">
-    <div tabindex="0" role="button" class="btn btn-xs m-1 flex justify-end w-32">
+    <div tabindex="0" role="button" class="btn btn-sm m-1 flex justify-end w-32">
         <div class="w-10/12">
             {currentTheme}
         </div> 

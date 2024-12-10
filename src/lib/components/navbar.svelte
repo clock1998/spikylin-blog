@@ -1,7 +1,7 @@
 <script>
 	import LanguageController from "./language-controller.svelte";
-import ThemeController from "./theme-controller.svelte";
-
+  import ThemeController from "./theme-controller.svelte";
+  import * as m from '$lib/paraglide/messages.js'
 </script>
 <div class="navbar bg-base-100 sticky top-0 z-10 backdrop-blur-sm">
     <div class="navbar-start">
@@ -24,16 +24,16 @@ import ThemeController from "./theme-controller.svelte";
         <ul
           tabindex="0"
           class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-          <li><a href="/about">About</a></li>
-          <li><a href="/about">Contact</a></li>
+          <li><a href="/about">{m.about()}</a></li>
+          <li><a href="/contact">{m.contact()}</a></li>
         </ul>
       </div>
       <a class="btn btn-ghost text-xl" href="/">Lin</a>
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
-        <li><a href="/about">About</a></li>
-        <li><a href="/about">Contact</a></li>
+        <li><a href="/about">{m.about()}</a></li>
+        <li><a href="/contact">{m.contact()}</a></li>
       </ul>
     </div>
     <div class="navbar-end mr-6">

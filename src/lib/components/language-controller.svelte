@@ -15,11 +15,12 @@
     }
 </script>
 
-<select on:change={e => switchToLanguage(e.currentTarget.value as AvailableLanguageTag)}>
+<select class="select" on:change={e => switchToLanguage(e.currentTarget.value as AvailableLanguageTag)}>
     {#each availableLanguageTags as langTag}
         <option 
             value={langTag}
             selected={languageTag() === langTag}
-            >{labels[langTag]}</option>
+            >{labels[langTag]}
+        </option>
     {/each}
 </select>

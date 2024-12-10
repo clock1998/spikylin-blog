@@ -1,4 +1,6 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello!"
+	"hello_world": "Hello!",
+	"contact":"Contact",
+	"about":"About"
 }
