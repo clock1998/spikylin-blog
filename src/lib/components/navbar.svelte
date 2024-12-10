@@ -1,5 +1,6 @@
 <script>
-	import ThemeController from "./theme-controller.svelte";
+	import LanguageController from "./language-controller.svelte";
+import ThemeController from "./theme-controller.svelte";
 
 </script>
 <div class="navbar bg-base-100 sticky top-0 z-10 backdrop-blur-sm">
@@ -38,5 +39,6 @@
     <div class="navbar-end mr-6">
       <a href="https://github.com/clock1998" aria-label="asd"><i class="fa-brands fa-github fa-lg"></i></a>
       <ThemeController></ThemeController>
+      <LanguageController></LanguageController>
     </div>
   </div>
