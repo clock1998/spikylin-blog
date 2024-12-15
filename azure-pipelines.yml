@@ -37,10 +37,12 @@ steps:
     repository: $(container-repository)
     tags: $(tag)
 - task: CmdLine@2
+  displayName: Clean docker cache
   inputs:
     script: 'docker builder prune -f'
 
 - task: CopyFiles@2
+  displayName: Copy docker compose file.
   inputs:
     SourceFolder: './'
     Contents: 'docker-compose.yml'
