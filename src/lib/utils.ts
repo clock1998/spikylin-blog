@@ -6,3 +6,10 @@ export function formatDate(date: string, dateStyle: DateStyle = 'medium', locale
 	const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle })
 	return dateFormatter.format(dateToFormat)
 }
+export function pathToSlug(path: string) {
+	return path.replace("/posts", "").replace(".md", "");
+}
+
+export function slugToPath(slug: string) {
+	return `posts/${slug}.md`;
+}
