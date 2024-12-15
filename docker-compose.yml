@@ -7,7 +7,7 @@ services:
   spikylin-blog:
     # networks:
     #   - tunnel
-    image: clock1998/spikylin-blog/spikylin-blog:latest
+    image: ghcr.io/clock1998/spikylin-blog:latest
     container_name: spikylin-blog
     restart: always
 
