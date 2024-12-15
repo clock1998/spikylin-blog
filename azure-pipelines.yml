@@ -39,3 +39,8 @@ steps:
 - task: CmdLine@2
   inputs:
     script: 'docker builder prune -f'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
