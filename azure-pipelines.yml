@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- main
 
 variables:
   container-registry: 'ghcr.io'
@@ -39,6 +39,14 @@ steps:
 - task: CmdLine@2
   inputs:
     script: 'docker builder prune -f'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: './'
+    Contents: 'docker-compose.yml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
