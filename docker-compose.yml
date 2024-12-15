@@ -1,0 +1,14 @@
+# networks:
+#   tunnel:
+#     name: tunnel
+#     driver: bridge
+
+services:
+  spikylin-blog:
+    # networks:
+    #   - tunnel
+    image: clock1998/spikylin-blog/spikylin-blog:latest
+    container_name: spikylin-blog
+    restart: always
+
+# docker compose -p services up -d
