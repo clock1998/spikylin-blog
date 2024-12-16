@@ -5,6 +5,8 @@ services:
   spikylin-blog:
     networks:
       - tunnel
+    ports:
+      - 80:80
     image: ghcr.io/clock1998/spikylin-blog:latest
     container_name: spikylin-blog
     restart: always
