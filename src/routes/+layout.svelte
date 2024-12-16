@@ -4,6 +4,7 @@
 	import '../app.css';
 	import Navbar from '$lib/components/navbar.svelte';
 	import Category from '$lib/components/category.svelte';
+	import NavbarFooter from '$lib/components/navbar-footer.svelte';
 	let { children } = $props();
 	let showSidebar = $state(false);
 </script>
@@ -50,14 +51,6 @@
 				{@render children()}
 			</main>
 		</div>
-		<footer class="footer fixed bottom-0 bg-neutral text-neutral-content p-2 flex justify-center items-baseline">
-			<div>
-			  <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
-			</div>
-			<div class="flex gap-3">
-				<a href="https://github.com/clock1998" aria-label="asd"><i class="fa-brands fa-github fa-lg"></i></a>
-				<a href="https://www.linkedin.com/in/linyi-jiang/" aria-label="asd"><i class="fa-brands fa-linkedin fa-lg"></i></a>
-			</div>
-		</footer>
+		<NavbarFooter></NavbarFooter>
 	</div>
 </ParaglideJS>
