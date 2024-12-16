@@ -26,7 +26,6 @@
           class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
           <li><a href="/about">{m.about()}</a></li>
           <li><a href="/contact">{m.contact()}</a></li>
-          <li><a href="https://github.com/clock1998" aria-label="asd"><i class="fa-brands fa-github fa-lg py-[10px]"></i></a></li>
         </ul>
       </div>
       <a class="btn btn-ghost text-xl" href="/">Lin</a>
@@ -35,7 +34,6 @@
       <ul class="menu menu-horizontal px-1">
         <li><a href="/about">{m.about()}</a></li>
         <li><a href="/contact">{m.contact()}</a></li>
-        <li><a href="https://github.com/clock1998" aria-label="asd"><i class="fa-brands fa-github fa-lg py-[10px]"></i></a></li>
       </ul>
     </div>
     <div class="navbar-end">
