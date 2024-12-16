@@ -12,7 +12,7 @@
 		<Navbar></Navbar>
 		<div class="drawer lg:drawer-open">
 			<input id="my-drawer" type="checkbox" class="drawer-toggle" />
-			<div class="drawer-content md:h-[85vh]">
+			<div class="drawer-content h-[85vh]  ">
 				<label for="my-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost md:hidden">
 					<svg
 					  xmlns="http://www.w3.org/2000/svg"
