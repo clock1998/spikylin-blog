@@ -1,9 +1,8 @@
 ---
-title : First post
-description: First post.
+title : Second post
+description: Second post.
 date: '2024-12-02'
-categories: 
-    - svelte
+tags: 
     - svelte
 published: true
 ---

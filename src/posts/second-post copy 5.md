@@ -2,9 +2,8 @@
 title : Second post
 description: Second post.
 date: '2024-12-02'
-categories: 
-    - svelte
-    - svelte
+tags: 
+    - zxczxc
 published: true
 ---
 

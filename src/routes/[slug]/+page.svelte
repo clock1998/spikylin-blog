@@ -17,8 +17,8 @@
 	</hgroup>
 
 	<div class="flex gap-1">
-		{#each data.meta.categories as category}
-            <button class="btn btn-sm btn-neutral"><span class="surface-4">&num;{category}</span></button>
+		{#each data.meta.tags as tag}
+            <button class="btn btn-sm btn-neutral"><span class="surface-4">&num;{tag}</span></button>
 		{/each}
 	</div>
     <data.content />

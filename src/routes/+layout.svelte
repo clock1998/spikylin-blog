@@ -1,19 +1,27 @@
 <script lang="ts">
+	import type { LayoutData } from './$types';
 	import { i18n } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import '../app.css';
 	import Navbar from '$lib/components/navbar.svelte';
 	import Category from '$lib/components/category.svelte';
 	import NavbarFooter from '$lib/components/navbar-footer.svelte';
-	let { children } = $props();
+	import { onMount, type Snippet } from 'svelte';
+	import type { Post } from '$lib/types';
 	let showSidebar = $state(false);
+
+	let { data, children }: { data: LayoutData, children: Snippet } = $props();
+	let tags:string[]=[]
+	let posts:Post[] = $state(data.posts);
+	posts.forEach(n=>tags = tags.concat(n.tags))
+	let cleanedTags = $state([...new Set(tags)]);
 </script>
 
 <ParaglideJS {i18n}>
 	<div class="grid h-screen grid-rows-[auto_1fr_auto]">
 		<Navbar></Navbar>
-		<div class="grid grid-cols-1 md:grid-cols-[auto_1fr] container mx-auto">
-			<button class="btn absolute z-20 md:hidden" aria-label="asd" onclick={() => showSidebar=!showSidebar}>
+		<div class="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+			<button class="btn fixed z-20 md:hidden" aria-label="asd" onclick={() => showSidebar=!showSidebar}>
 				<svg
 				  xmlns="http://www.w3.org/2000/svg"
 				  fill="none"
@@ -26,11 +34,8 @@
 					d="M4 6h16M4 12h16M4 18h16"></path>
 				</svg>
 			</button>
-			<aside class={showSidebar ? 'h-[calc(100vh-100px)] absolute top-15 z-10 md:hidden' : "hidden "}>
-				<Category></Category>
-			</aside>
-		  	<aside class={" hidden md:block"}>
-				<Category></Category>
+			<aside class="{showSidebar ? '':'hidden'} lg:block fixed z-10 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19rem] pb-10 pl-8 pr-6 overflow-y-auto " >
+				<Category tags={cleanedTags}></Category>
 			</aside>
 			<main class="p-4 max-w-4xl">
 				<div class="w-full flex justify-center p-4">

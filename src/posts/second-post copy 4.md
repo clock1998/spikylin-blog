@@ -1,15 +1,14 @@
 ---
-title : First post
-description: First post.
+title : Second post
+description: Second post.
 date: '2024-12-02'
 tags: 
-    - svelte
-    - svelte
+    - asdaszxc
 published: true
 ---
 
 # Markdown
-Salut!
+Hello world
 ```ts
 function greet(name:string){
     console.log(`asdadsad`)
