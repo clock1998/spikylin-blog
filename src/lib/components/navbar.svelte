@@ -5,6 +5,11 @@
 </script>
 <div class="navbar bg-base-100 sticky top-0 z-10 backdrop-blur-sm">
     <div class="navbar-start">
+      <a class="ml-4" href="/"><img src="/logo.png" alt="Logo" width="40px" class="rounded-lg"/></a>
+      <div class="hidden lg:flex">
+        <a class="btn btn-ghost" href="/about">{m.about()}</a>
+        <a class="btn btn-ghost" href="/contact">{m.contact()}</a>
+      </div>
       <div class="dropdown">
         <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
           <svg
@@ -28,13 +33,6 @@
           <li><a href="/contact">{m.contact()}</a></li>
         </ul>
       </div>
-      <a class="btn btn-ghost text-xl" href="/">Lin</a>
-    </div>
-    <div class="navbar-center hidden lg:flex">
-      <ul class="menu menu-horizontal px-1">
-        <li><a href="/about">{m.about()}</a></li>
-        <li><a href="/contact">{m.contact()}</a></li>
-      </ul>
     </div>
     <div class="navbar-end">
       <ThemeController></ThemeController>
