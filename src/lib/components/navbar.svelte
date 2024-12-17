@@ -2,6 +2,7 @@
 	import LanguageController from "./language-controller.svelte";
   import ThemeController from "./theme-controller.svelte";
   import * as m from '$lib/paraglide/messages.js'
+
 </script>
 <div class="navbar bg-base-100 sticky top-0 z-10 backdrop-blur-sm">
     <div class="navbar-start">
