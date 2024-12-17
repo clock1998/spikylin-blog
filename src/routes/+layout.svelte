@@ -8,13 +8,20 @@
 	import NavbarFooter from '$lib/components/navbar-footer.svelte';
 	import { onMount, type Snippet } from 'svelte';
 	import type { Post } from '$lib/types';
-	let showSidebar = $state(false);
-
+	import { setContext } from 'svelte';
 	let { data, children }: { data: LayoutData, children: Snippet } = $props();
+
+	let showSidebar = $state(false);
 	let tags:string[]=[]
-	let posts:Post[] = $state(data.posts);
-	posts.forEach(n=>tags = tags.concat(n.tags))
-	let cleanedTags = $state([...new Set(tags)]);
+	data.posts.forEach(n=>tags = tags.concat(n.tags));
+	let cleanedTags:string[] = $state([]);
+	cleanedTags = [...new Set(tags)];
+	let postsState = $state({ posts: data.posts });
+	setContext('postsState', postsState );
+
+	function tagClick(tag: string){
+		postsState.posts = data.posts.filter(n=>n.tags.includes(tag))
+	}
 </script>
 
 <ParaglideJS {i18n}>
@@ -35,11 +42,11 @@
 				</svg>
 			</button>
 			<aside class="{showSidebar ? '':'hidden'} lg:block fixed z-10 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19rem] pb-10 pl-8 pr-6 overflow-y-auto " >
-				<Category tags={cleanedTags}></Category>
+				<Category {tagClick} tags={cleanedTags}></Category>
 			</aside>
 			<main class="p-4 max-w-4xl">
-				<div class="w-full flex justify-center p-4">
-					<label class="input input-bordered flex items-center gap-2 w-80">
+				<div class="w-full flex justify-center pb-2">
+					<label class="input input-bordered flex items-center w-80">
 						<input type="text" class="grow" placeholder="Search" />
 						<svg
 						  xmlns="http://www.w3.org/2000/svg"
