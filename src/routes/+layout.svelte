@@ -25,26 +25,28 @@
 </script>
 
 <ParaglideJS {i18n}>
-	<div class="grid h-screen grid-rows-[auto_1fr_auto]">
+	<div class="h-screen my-8">
 		<Navbar></Navbar>
-		<div class="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
-			<button class="btn fixed z-20 md:hidden" aria-label="asd" onclick={() => showSidebar=!showSidebar}>
-				<svg
-				  xmlns="http://www.w3.org/2000/svg"
-				  fill="none"
-				  viewBox="0 0 24 24"
-				  class="inline-block h-6 w-6 stroke-current">
-				  <path
+		<button class="btn fixed z-20 top-1/2 px-1 " aria-label="asd" onclick={() => showSidebar=!showSidebar}>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				class="inline-block w-6 stroke-current"
+				>
+				<path
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					stroke-width="2"
-					d="M4 6h16M4 12h16M4 18h16"></path>
-				</svg>
-			</button>
-			<aside class="{showSidebar ? '':'hidden'} lg:block fixed z-10 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19rem] pb-10 pl-8 pr-6 overflow-y-auto " >
+					d="M9 5l7 7-7 7"
+				/>
+			</svg>
+		</button>
+		<div class="container mx-auto p-10">
+			<aside class="{showSidebar ? '':'hidden'} fixed z-10 inset-0 top-[3.8125rem] right-auto w-[19rem] pb-10 pl-8 pr-6 overflow-y-auto " >
 				<Category {tagClick} tags={cleanedTags}></Category>
 			</aside>
-			<main class="p-4 max-w-4xl">
+			<main>
 				<div class="w-full flex justify-center pb-2">
 					<label class="input input-bordered flex items-center w-80">
 						<input type="text" class="grow" placeholder="Search" />
@@ -60,11 +62,9 @@
 						</svg>
 					  </label>
 				</div>
-				<div class="flex justify-center">
-					{@render children()}
-				</div>
+				{@render children()}
 			</main>
 		</div>
-		<NavbarFooter></NavbarFooter>
 	</div>
+	<NavbarFooter></NavbarFooter>
 </ParaglideJS>

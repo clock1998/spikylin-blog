@@ -1,4 +1,4 @@
-<footer class="footer sticky bottom-0 bg-neutral text-neutral-content p-2 flex justify-center items-baseline">
+<footer class="footer fixed bottom-0 bg-neutral text-neutral-content p-2 flex justify-center items-baseline">
     <div>
       <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
     </div>
