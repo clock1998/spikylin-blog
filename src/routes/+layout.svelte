@@ -12,7 +12,7 @@
 <ParaglideJS {i18n}>
 	<div class="grid h-screen grid-rows-[auto_1fr_auto]">
 		<Navbar></Navbar>
-		<div class="grid grid-cols-1 md:grid-cols-[auto_1fr]">
+		<div class="grid grid-cols-1 md:grid-cols-[auto_1fr] container mx-auto">
 			<div class="space-y-4 md:hidden">
 				<button class="btn absolute z-20" aria-label="asd" onclick={() => showSidebar=!showSidebar}>
 					<svg
@@ -34,7 +34,7 @@
 		  	<aside class={" hidden md:block"}>
 				<Category></Category>
 			</aside>
-			<main class="p-4 ">
+			<main class="p-4 max-w-4xl">
 				<div class="w-full flex justify-center p-4">
 					<label class="input input-bordered flex items-center gap-2 w-80">
 						<input type="text" class="grow" placeholder="Search" />
