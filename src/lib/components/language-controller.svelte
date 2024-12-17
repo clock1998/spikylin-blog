@@ -10,12 +10,12 @@
 		goto(localisedPath);
 	}
     const labels = {
-        en: "English",
-        fr: "French"
+        en: "En",
+        fr: "Fr"
     }
 </script>
 
-<select class="select" on:change={e => switchToLanguage(e.currentTarget.value as AvailableLanguageTag)}>
+<select class="select select-sm" on:change={e => switchToLanguage(e.currentTarget.value as AvailableLanguageTag)}>
     {#each availableLanguageTags as langTag}
         <option 
             value={langTag}
