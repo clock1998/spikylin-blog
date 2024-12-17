@@ -43,7 +43,7 @@
 			</svg>
 		</button>
 		<div class="container mx-auto p-10">
-			<aside class="{showSidebar ? '':'hidden'} fixed z-10 inset-0 top-[3.8125rem] right-auto w-[19rem] pb-10 pl-8 pr-6 overflow-y-auto " >
+			<aside class="{showSidebar ? '':'hidden'} fixed z-10 inset-0 top-[3.8125rem] right-auto w-[19rem] overflow-y-auto bg-base-200 p-4 left-10 h-[calc(100vh-100px)] rounded-lg" >
 				<Category {tagClick} tags={cleanedTags}></Category>
 			</aside>
 			<main>
