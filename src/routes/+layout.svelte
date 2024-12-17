@@ -4,11 +4,10 @@
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import '../app.css';
 	import Navbar from '$lib/components/navbar.svelte';
-	import Category from '$lib/components/category.svelte';
 	import NavbarFooter from '$lib/components/navbar-footer.svelte';
-	import { onMount, type Snippet } from 'svelte';
-	import type { Post } from '$lib/types';
+	import { type Snippet } from 'svelte';
 	import { setContext } from 'svelte';
+	import Sidebar from '$lib/components/sidebar.svelte';
 	let { data, children }: { data: LayoutData, children: Snippet } = $props();
 
 	let showSidebar = $state(false);
@@ -43,9 +42,7 @@
 			</svg>
 		</button>
 		<div class="container mx-auto p-10">
-			<aside class="{showSidebar ? '':'hidden'} fixed z-10 inset-0 top-[3.8125rem] right-auto w-[19rem] overflow-y-auto bg-base-200 p-4 left-10 h-[calc(100vh-100px)] rounded-lg" >
-				<Category {tagClick} tags={cleanedTags}></Category>
-			</aside>
+			<Sidebar {tagClick} tags={cleanedTags} showSidebar={showSidebar}></Sidebar>
 			<main>
 				<div class="w-full flex justify-center pb-2">
 					<label class="input input-bordered flex items-center w-80">
