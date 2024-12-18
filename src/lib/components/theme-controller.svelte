@@ -30,10 +30,8 @@
     }
 </script>
 <div class="dropdown dropdown-end">
-    <div tabindex="0" role="button" class="btn btn-sm m-1 flex justify-end w-32">
-        <div class="w-10/12">
-            {currentTheme}
-        </div> 
+    <div tabindex="0" role="button" class="btn btn-sm m-1 flex justify-end w-full">
+        <p>{currentTheme}</p>
         <svg
             width="12px"
             height="12px"
@@ -44,7 +42,7 @@
         </svg>
     </div>
     <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-    <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-[1] w-52 p-2 shadow-2xl">
+    <ul tabindex="0" class="dropdown-content bg-base-300 rounded-box z-[1] w-30 p-2 shadow-2xl">
         {#each themes as theme, index}
             <li>
                 <input
