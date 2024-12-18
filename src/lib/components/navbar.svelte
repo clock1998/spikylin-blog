@@ -7,7 +7,13 @@
 
 	let search: 'loading' | 'ready' = $state('loading');
 	let searchTerm = $state('');
-	let results:any[] = $state([])
+  type Result =
+  {
+    slug:string
+    title: string
+    content: string[],
+  }
+	let results:Result [] = $state([])
 	onMount(async () => {
     	// get the posts)
     const response = await fetch('api/search')

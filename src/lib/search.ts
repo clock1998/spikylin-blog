@@ -1,12 +1,9 @@
 import FlexSearch from 'flexsearch'
+import type { SearchResult } from './types'
 
 let postsIndex: FlexSearch.Index
-interface Post {
-    title: string,
-    slug: string,
-    content: string,
-}
-let posts: Post[]
+
+let searchResult: SearchResult[]
 
 export function createPostsIndex(data: any[]) {
   // create the posts index
@@ -18,7 +15,7 @@ export function createPostsIndex(data: any[]) {
     // add the item to the index 👍️
 		postsIndex.add(i, item)
 	})
-	posts = data
+	searchResult = data
 }
 
 export function searchPostsIndex(searchTerm: string) {
@@ -29,14 +26,14 @@ export function searchPostsIndex(searchTerm: string) {
   
       return results
       // filter the posts based on the matched index
-          .map((index) => posts[index as number])
+          .map((index) => searchResult[index as number])
       // you can do whatever you want at this point 👌
           .map(({ slug, title, content }) => {
               return {
                   slug,
-          // replace match in title with a marker
+                    // replace match in title with a marker
                   title: replaceTextWithMarker(title, match),
-          // match words in post and replace matches with marker
+                    // match words in post and replace matches with marker
                   content: getMatches(content, match),
               }
           })

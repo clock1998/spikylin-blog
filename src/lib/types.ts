@@ -6,3 +6,9 @@ export type Post = {
 	tags: string[]
 	published: boolean
 }
+
+export type SearchResult = {
+	title: string
+	slug: string
+	content: string
+}
