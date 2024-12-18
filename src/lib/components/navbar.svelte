@@ -1,8 +1,30 @@
-<script>
+<script lang="ts">
 	import LanguageController from "./language-controller.svelte";
   import ThemeController from "./theme-controller.svelte";
   import * as m from '$lib/paraglide/messages.js'
+	import { onMount } from "svelte";
+	import { createPostsIndex, searchPostsIndex } from "$lib/search";
 
+	let search: 'loading' | 'ready' = $state('loading');
+	let searchTerm = $state('');
+	let results:any[] = $state([])
+	onMount(async () => {
+    	// get the posts)
+    const response = await fetch('api/search')
+    const posts: any[] = await response.json()
+    console.log(posts)
+		// create search index
+    	createPostsIndex(posts)
+    	// we're in business 🤝
+		search = 'ready'
+	})
+	$effect(()=>{
+		if (search === 'ready') {
+		// runs each time `searchTerm` updates
+			results = searchPostsIndex(searchTerm)
+		}
+	})
+  
 </script>
 <div class="navbar sticky bg-base-100 top-0 z-10 backdrop-blur-sm">
     <div class="navbar-start">
@@ -46,6 +68,32 @@
       </div>
     </div>
     <div class="navbar-center hidden lg:flex">
+      {#if search === 'ready'}
+      <div class="search">
+          <input
+            bind:value={searchTerm}
+            placeholder="Search"
+            autocomplete="off"
+            spellcheck="false"
+            type="search"
+          />
+
+          <div class="results">
+            {#if results}
+              <ul>
+                {#each results as result}
+                  <li>
+                    <a href="/{result.slug}">
+                      {@html result.title}
+                    </a>
+                    <p>{@html result.content}</p>
+                  </li>
+                {/each}
+              </ul>
+            {/if}
+          </div>
+        </div>
+      {/if}
       <a class="btn btn-ghost" href="/about">{m.about()}</a>
       <label class="mx-auto input input-bordered flex items-center w-80">
         <input type="text" class="grow" placeholder="Search" />

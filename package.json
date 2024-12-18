@@ -37,6 +37,8 @@
 	"dependencies": {
 		"@inlang/paraglide-sveltekit": "^0.11.1",
 		"@tailwindcss/typography": "^0.5.15",
+		"flexsearch": "^0.7.43",
+		"remove-markdown": "^0.6.0",
 		"shiki": "^1.24.0"
 	}
 }

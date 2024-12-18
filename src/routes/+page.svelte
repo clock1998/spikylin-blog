@@ -25,14 +25,6 @@
 </svelte:head>
 
 <div class="flex flex-wrap gap-4 justify-center pb-10">
-    <div class="hero bg-base-200 min-h-[47vh]">
-        <div class="hero-content flex-col lg:flex-row prose">
-          <img src="/about.jpg" alt="about" class="max-w-sm rounded-lg shadow-2xl" />
-          <div class="pl-10 ">
-            <h1>Hi there! 😎</h1>
-          </div>
-        </div>
-    </div>
     {#each postsState.posts as post}
         <a href={post.slug}>
             <div class="card bg-base-300 w-96 shadow-xl">
