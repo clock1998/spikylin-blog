@@ -1,7 +1,7 @@
-<div class="hero bg-base-200 min-h-[90vh]">
+<div class="hero bg-base-200 min-h-[87vh]">
     <div class="hero-content flex-col lg:flex-row prose">
       <img src="/about.jpg" alt="about" class="max-w-sm rounded-lg shadow-2xl" />
-      <div>
+      <div class="pl-10 ">
         <h1>Hi there! 😎</h1>
         <p>
             I'm Linyi, and welcome to my personal blog. I live in the beautiful city of Montreal, where I spend my time exploring my passions for software development, outdoor adventures, and sharing knowledge.
