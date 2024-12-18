@@ -26,7 +26,7 @@
 
 <div class="flex flex-wrap gap-4 justify-center pb-10">
     {#each postsState.posts as post}
-        <a href={post.slug}>
+        <a href={post.slug} class="no-underline">
             <div class="card bg-base-300 w-96 shadow-xl">
                 <div class="card-body">
                     <h2 class="card-title">{post.title}</h2>

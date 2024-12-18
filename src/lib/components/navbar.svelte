@@ -51,69 +51,69 @@
           </svg>
         </div>
         <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-        <ul
-          tabindex="0"
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3  p-2 shadow">
-          <li><a href="/about">{m.about()}</a></li>
-          <li>
-            <label class="mx-auto input input-bordered flex items-center w-80">
-              <input type="text" class="grow" placeholder="Search" />
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 16 16"
-                fill="currentColor"
-                class="h-4 w-4 opacity-70">
-                <path
-                fill-rule="evenodd"
-                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                clip-rule="evenodd" />
-              </svg>
-            </label>
-          </li>
-        </ul>
+        <div tabindex="0" class="dropdown-content card  bg-base-200 z-[1] p-2 shadow">
+          <div class="card-body no-underline p-1">
+            <a class="py-1" href="/about">{m.about()}</a>  
+            {#if search === 'ready'}
+              <div class="dropdown">
+                <label class="mx-auto input input-bordered flex items-center w-72">
+                  <input class="grow" placeholder="Search" autocomplete="off" spellcheck="false" type="search" bind:value={searchTerm} />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    class="h-4 w-4 opacity-70">
+                    <path
+                    fill-rule="evenodd"
+                    d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                    clip-rule="evenodd" />
+                  </svg>
+                </label>
+                <ul class={results.length!==0 ? "dropdown-content menu bg-base-100 rounded-box z-[1] w-72 p-2 shadow" : "hidden"}>
+                  {#each results as result}
+                    <li>
+                      <a href="/{result.slug}" class="flex flex-col justify-start items-start p-0">
+                        <p>Title: {@html result.title}</p>
+                        <p>Content: {@html result.content}</p>
+                      </a>
+                    </li>
+                  {/each}
+                </ul>
+              </div>
+            {/if}
+          </div>
+      </div>
       </div>
     </div>
     <div class="navbar-center hidden lg:flex">
+      <a class="btn btn-ghost" href="/about">{m.about()}</a>
       {#if search === 'ready'}
-      <div class="search">
-          <input
-            bind:value={searchTerm}
-            placeholder="Search"
-            autocomplete="off"
-            spellcheck="false"
-            type="search"
-          />
-
-          <div class="results">
-            {#if results}
-              <ul>
-                {#each results as result}
-                  <li>
-                    <a href="/{result.slug}">
-                      {@html result.title}
-                    </a>
-                    <p>{@html result.content}</p>
-                  </li>
-                {/each}
-              </ul>
-            {/if}
-          </div>
+        <div class="dropdown ">
+          <label class="mx-auto input input-bordered flex items-center w-80">
+            <input class="grow" placeholder="Search" autocomplete="off" spellcheck="false" type="search" bind:value={searchTerm} />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              class="h-4 w-4 opacity-70">
+              <path
+              fill-rule="evenodd"
+              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+              clip-rule="evenodd" />
+            </svg>
+          </label>
+          <ul  class={results.length!==0 ? "dropdown-content menu bg-base-100 rounded-box z-[1] w-80 p-2 shadow" : "hidden"}>
+            {#each results as result}
+              <li>
+                <a href="/{result.slug}" class="flex flex-col justify-start items-start p-0">
+                  <p>Title: {@html result.title}</p>
+                  <p>Content: {@html result.content}</p>
+                </a>
+              </li>
+            {/each}
+          </ul>
         </div>
       {/if}
-      <a class="btn btn-ghost" href="/about">{m.about()}</a>
-      <label class="mx-auto input input-bordered flex items-center w-80">
-        <input type="text" class="grow" placeholder="Search" />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 16 16"
-          fill="currentColor"
-          class="h-4 w-4 opacity-70">
-          <path
-          fill-rule="evenodd"
-          d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-          clip-rule="evenodd" />
-        </svg>
-      </label>
     </div>
 
     <div class="navbar-end">
