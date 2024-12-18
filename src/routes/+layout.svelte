@@ -24,7 +24,7 @@
 </script>
 
 <ParaglideJS {i18n}>
-	<div class="h-screen my-8">
+	<div class="">
 		<Navbar></Navbar>
 		<button class="btn fixed z-20 top-1/2 px-1 " aria-label="asd" onclick={() => showSidebar=!showSidebar}>
 			<svg
@@ -41,10 +41,10 @@
 				/>
 			</svg>
 		</button>
-		<div class="container mx-auto p-10">
+		<div class="container mx-auto">
 			<Sidebar {tagClick} tags={cleanedTags} showSidebar={showSidebar}></Sidebar>
 			{@render children()}
 		</div>
-		<NavbarFooter></NavbarFooter>
 	</div>
+	<NavbarFooter></NavbarFooter>
 </ParaglideJS>

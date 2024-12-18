@@ -24,7 +24,7 @@
 	<title>{config.title}</title>
 </svelte:head>
 
-<div class="flex flex-wrap gap-4 justify-center">
+<div class="flex flex-wrap gap-4 justify-center py-10">
     {#each postsState.posts as post}
         <a class="link" href={post.slug}>
             <div class="card bg-base-300 w-96 shadow-xl">

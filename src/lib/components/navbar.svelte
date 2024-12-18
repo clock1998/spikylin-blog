@@ -4,7 +4,7 @@
   import * as m from '$lib/paraglide/messages.js'
 
 </script>
-<div class="navbar fixed bg-base-100 top-0 z-10 backdrop-blur-sm">
+<div class="navbar sticky bg-base-100 top-0 z-10 backdrop-blur-sm">
     <div class="navbar-start">
       <a class="ml-4" href="/"><img src="/logo.png" alt="Logo" width="40px" class="rounded-lg"/></a>
       <div class="hidden lg:flex">
