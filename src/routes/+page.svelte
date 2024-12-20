@@ -27,11 +27,11 @@
 <div class="flex flex-wrap gap-4 justify-center pb-10">
     {#each postsState.posts as post}
         <a href={post.slug} class="no-underline">
-            <div class="card bg-base-300 w-96 shadow-xl">
-                <div class="card-body">
-                    <h2 class="card-title">{post.title}</h2>
+            <div class="card bg-base-300 w-96 shadow-xl h-52">
+                <div class="card-body h-52">
+                    <h2 class="card-title overflow-hidden text-ellipsis line-clamp-2">{post.title}</h2>
                     <p>{formatDate(post.date)}</p>
-                    <p>{post.description}</p>
+                    <p class="overflow-hidden text-ellipsis line-clamp-2">{post.description}</p>
                 </div>
             </div>
         </a>
