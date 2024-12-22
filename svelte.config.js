@@ -6,7 +6,7 @@ import { createHighlighter } from 'shiki'
  * @type {import('mdsvex').MdsvexOptions}
  */
 const mdsvexOptions = {
-	extensions: ['.md'],
+	extensions: ['.svx', '.md'],
 	highlight: {
 		highlighter: async (code, lang = 'text') => {
 			const highlighter = await createHighlighter({

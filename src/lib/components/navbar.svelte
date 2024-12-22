@@ -18,7 +18,6 @@
     	// get the posts)
     const response = await fetch('api/search')
     const posts: any[] = await response.json()
-    console.log(posts)
 		// create search index
     	createPostsIndex(posts)
     	// we're in business 🤝
