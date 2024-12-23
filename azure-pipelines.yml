@@ -45,8 +45,9 @@ steps:
 - task: CmdLine@2
   displayName: Clean docker cache
   inputs:
-    script: 'docker builder prune -f'
-
+    script: | 
+      docker builder prune -f
+      docker image prune -f
 - task: CopyFiles@2
   displayName: Copy docker compose file.
   inputs:
