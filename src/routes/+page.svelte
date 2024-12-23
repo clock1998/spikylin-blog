@@ -25,7 +25,7 @@
 <div class="flex flex-wrap gap-4 justify-center pb-10">
     {#each posts as post}
         <a href={post.slug} class="no-underline">
-            <div class="card bg-base-300 w-96 shadow-xl h-52">
+            <div class="card bg-base-300 w-96 shadow-xl h-52  hover:bg-base-200 transition ease-in-out duration-300">
                 <div class="card-body h-52">
                     <h2 class="card-title overflow-hidden text-ellipsis line-clamp-2">{post.title}</h2>
                     <p>{formatDate(post.date)}</p>
