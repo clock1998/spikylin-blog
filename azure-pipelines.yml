@@ -35,13 +35,15 @@ steps:
     repository: $(container-repository)
     tags: $(tag)
 
-- task: Docker@2
+- task: CmdLine@2
   displayName: Docker Push
   inputs:
-    containerRegistry: $(container-registry)
-    command: 'push'
-    repository: $(container-repository)
-    tags: $(tag)
+    script: 'docker push $(container-registry)/$(container-repository):$(tag)'
+  # inputs:
+  #   containerRegistry: $(container-registry)
+  #   command: 'push'
+  #   repository: $(container-repository)
+  #   tags: $(tag)
 - task: CmdLine@2
   displayName: Clean docker cache
   inputs:
