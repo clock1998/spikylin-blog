@@ -19,7 +19,7 @@ steps:
   inputs:
     containerRegistry: $(container-registry)
     command: 'login'
-    arguments: --username clock1998 --password $(github-token)
+    arguments: --username clock1998 --password $(GITHUB-TOKEN)
     
 - task: CmdLine@2
   displayName: Clean docker cache
