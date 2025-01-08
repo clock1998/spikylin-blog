@@ -10,7 +10,7 @@
 	<meta property="og:title" content={data.meta.title} />
 </svelte:head>
 
-<article  class="container prose max-w-4xl mx-auto mb-2">
+<article class="container prose max-w-4xl mx-auto pb-10">
 	<hgroup>
 		<h1>{data.meta.title}</h1>
 		<p>Published at {formatDate(data.meta.date)}</p>
