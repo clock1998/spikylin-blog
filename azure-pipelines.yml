@@ -36,6 +36,11 @@ steps:
     tags: $(tag)
 
 - task: CmdLine@2
+  displayName: Docker Login
+  inputs:
+    script: 'docker login --username clock1998 --password $(GITHUB-TOKEN) ghcr.io'
+
+- task: CmdLine@2
   displayName: Docker Push
   inputs:
     script: 'docker push $(container-registry)/$(container-repository):$(tag)'
