@@ -7,6 +7,7 @@ tags:
     - Architecture
     - Refactoring
 published: false
+featured: false
 ---
 
 Add-Migration SomeMigration -OutputDir Data\Migrations

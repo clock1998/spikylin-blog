@@ -6,6 +6,7 @@ tags:
     - SvelteKit
     - ThreeJs
 published: true
+featured: false
 ---
 
 ![image](/post_images/threejs.png "Example")

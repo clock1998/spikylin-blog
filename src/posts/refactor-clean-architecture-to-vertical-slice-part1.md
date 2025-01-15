@@ -7,6 +7,7 @@ tags:
     - Architecture
     - Refactoring
 published: true
+featured: true
 ---
 
 This is a template that I built a few years ago. It was first inspired by the techonology I use at work. My goal was to build a fullstack template that would scale and was easy to maintain. The backend is a APS.NET project and the frontend is a Angular SPA. The two frameworks are very similar in design language. They both have well developed and maintained first party tools provided by Microsoft and Google. The tools like Entity Framework and angular-cli are unopinionated the best in their designed use cases. Also, there are many third party components available, like DevExpress and DevExtream. 

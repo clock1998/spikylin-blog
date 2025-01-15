@@ -4,6 +4,7 @@ description: To do items in the future
 date: '2025-01-14'
 tags: 
 published: true
+featured: false
 ---
 # To Do
 - Learn Hugging face

@@ -6,6 +6,7 @@ tags:
     - DevOps
     - Docker
 published: true
+featured: true
 ---
 # Docker Cheat Sheet
 

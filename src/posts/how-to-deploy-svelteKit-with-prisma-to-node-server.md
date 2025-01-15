@@ -6,6 +6,7 @@ tags:
     - DevOps
     - SvelteKit
 published: true
+featured: false
 ---
 Hello everyone. I know Vercel is quick and free, but I like to do things myself and contribute to the community, so I create this quick deployment guide for people who wish to deploy Sveltekit to their home server or VPS. ( Disclaimer: I am not sure if this guide is ready for your 10 billion dollar company project) Anyway, it works for my small personal app.
 My environment and tech stacks: I am running Ubuntu 20.04.6 LTS on my grandma's ten years old Dell. My application is built with SvelteKit, Prisma, and Lucia.

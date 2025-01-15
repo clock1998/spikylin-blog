@@ -6,6 +6,7 @@ tags:
     - DevOps
     - Linux
 published: true
+featured: true
 ---
 
 # Linux commands

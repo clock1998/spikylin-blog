@@ -5,6 +5,7 @@ date: '2024-12-18'
 tags: 
     - SvelteKit
 published: true
+featured: false
 ---
 
 ## Technology
