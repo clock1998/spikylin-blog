@@ -6,6 +6,7 @@ tags:
     - HomeLab
     - DevOps
 published: true
+featured: true
 ---
 
 ![home lab](/post_images/my-home-lab.jpg "Example")
