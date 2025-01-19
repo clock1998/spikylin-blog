@@ -38,3 +38,11 @@ rm -rf
 git config --global user.name "FIRST_NAME LAST_NAME"
 git config --global user.email "MY_NAME@example.com"
 ```
+## How to resize ubuntu partition?
+
+1. use live CD and resize in Gparted
+2. enter the system. 
+``` shellscript
+sudo lvextend -l 100%VG ubuntu-vg/ubuntu-lv
+sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
+```
