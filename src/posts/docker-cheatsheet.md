@@ -23,7 +23,8 @@ docker stop $(docker ps -a -q)
 
 docker rm $(docker ps -a -q)
 ``` 
-## How to show all logs
+
+## How to show all build logs
 ``` shellscript
 docker build --no-cache --progress=plain .
 ```
