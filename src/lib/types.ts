@@ -1,3 +1,5 @@
+import type { Component } from "svelte"
+
 export type Post = {
 	title: string
 	slug: string
@@ -5,6 +7,7 @@ export type Post = {
 	date: string
 	tags: string[]
 	published: boolean
+	featured: boolean
 }
 
 export type SearchResult = {
