@@ -123,4 +123,61 @@ public abstract class AuthController(
 }
 
 ```
+
 Note: I can also create new instances when I use handlers. In that way, I will not need to register handlers using DI.
+
+I also kept some special handlers to reduce code duplication. For example, the logic to save a image on the server can be share across the application. There could be profile image, chat image, thumbnails...
+Here is a generic method for upload images.
+```csharp
+namespace WebAPI.Features.Images.Command
+{
+    public record ImageFile(IFormFile File, string? FileDescription);
+    public abstract record ImageUploadRequest(ImageFile[] Images);
+    public class UploadImageHandler<T>(AppDbContext context, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment webHostEnvironment) : Handler(context) where T : Image
+    {
+        public virtual async Task<T> HandleAsync(T image)
+        {
+            var trustedFileNameForDisplay = WebUtility.HtmlEncode(Path.GetFileNameWithoutExtension(image.File.FileName));
+            if (!string.IsNullOrEmpty(image.FileName))
+            {
+                trustedFileNameForDisplay = WebUtility.HtmlEncode(image.FileName);
+            }
+            image.FileName = trustedFileNameForDisplay;
+            image.FilePath = $"";
+            // create the image in the data base first to get the id.
+            await _context.AddAsync(image);
+            await _context.SaveChangesAsync();
+
+            var request = httpContextAccessor.HttpContext?.Request;
+            image.FilePath = $"{request?.Scheme}://{request?.Host}{request?.PathBase}/Images/{image.Id}{image.FileExtension}";
+            // create the file path using the generated id to avoid duplicate names.
+            await _context.SaveChangesAsync();
+            var localFilePath = Path.Combine(webHostEnvironment.ContentRootPath, "Images", $"{image.Id}{image.FileExtension}");
+            using (var fileStream = new FileStream(localFilePath, FileMode.Create))
+            {
+                await image.File.CopyToAsync(fileStream);
+            }
+            return image;
+        }
+    }
+}
+```
+
+A user profile image will just one extra feild, UserProfileID. Upload a profile image will simple be:
+```csharp
+namespace WebAPI.Features.UserProfiles.Command
+{
+    public record ProfileImageUploadRequest(ImageFile[] Images, string UserProfileId) : ImageUploadRequest(Images);
+    public class UploadProfileImageHandler(AppDbContext context, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment webHostEnvironment)
+        : UploadImageHandler<ProfileImage>(context, httpContextAccessor, webHostEnvironment)
+    {
+        public override async Task<ProfileImage> HandleAsync(ProfileImage image)
+        {
+            var newImage = await base.HandleAsync(image);
+            newImage.UserProfileId = image.UserProfileId;
+            await _context.SaveChangesAsync();
+            return newImage;
+        }
+    }
+}
+```
