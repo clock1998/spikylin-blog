@@ -1,94 +1,126 @@
 ---
 title : Resturcture Clean Architecture to Vertical Slice Arhcitecture Part 2
 description:  Refactory a Clean Architecture project to a Vertical Slice Arhcitecture project, change repository pattern to CQRS.
-date: '2025-01-7'
+date: '2025-02-02'
 tags: 
     - ASP.NET
     - Architecture
     - Refactoring
-published: false
+published: true
 featured: false
 ---
 
 Add-Migration SomeMigration -OutputDir Data\Migrations
 
-Reasons to refactoring
+I dicided to change the architecture from Clean Architecture to CQRS. There are a few reasons:
+1. Remove abstraction.
+2. Increase readability.
+3. Feature based file structure.
+4. Reduce merge conflict.
 
-Start from smaller pieces
+In my old clean architecture, all the business logic resides in the AuthRepository.cs file. But now, the logic is seperated into different commands:
+![alt text](/post_images/refactor-clean-architecture-to-vertical-slice/CQRS-file-structure.png)
+However, I did not put my controller methods in the handlers, as I use traditional controller methods. I feel it is better to put all the end points in the same class so I can get the grouping and naming feature from the framework. One downside is that if I have many more end points for a single feature, the controller class will be super large. A potential solution is to have partial class. Minimal API method is another option, and it is better to use Minimal API if you want to put end points in the same files as handlers.
 
-Reason to new up handler. does not need DI
+I also added Fluent Validator. It makes the validation more clean. I mainly use the validator to valide data model not business logic validation.
 
-Reason to have a common controller. to avoid adding tributte to every endpoint
-## Possible solutions:
-
+Here is the login handler.
 ```csharp
-[HttpPost, Route("Register")]
-public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
+namespace WebAPI.Features.Auth.Query
 {
-    try
+    public sealed record LoginRequest(string Username, string Password);
+
+    public sealed class LoginValidator : AbstractValidator<LoginRequest>
     {
-        var email = userDTO.Email.ToLower();
-        var domain = email.Trim().Split("@")[1];
-        if (email.IsValidEmail() && context.Domains.Any(n => n.Record == domain))
+        public LoginValidator()
         {
-            var user = await authRepository.RegisterAsync(userDTO);
-            await authRepository.SendVerificationEmailAsync(user, Url, HttpContext.Request.Scheme);
-            return Ok();
+            RuleFor(n => n.Username).NotEmpty().EmailAddress();
+            RuleFor(n => n.Password).NotEmpty();
         }
-        throw new Exception($"Domains allowed: {string.Join(",", context.Domains.Select(n => n.Record))}");
-    }
-    catch (Exception ex)
-    {
-        return Problem(detail: ex.Message, instance: null, 400, title: "Register", type: "Register");
-    }
-}
-
-public async Task<ApplicationUser> RegisterAsync(UserDTO userDto)
-{
-    // Check if the passwords match
-    if (!userDto.Password.Equals(userDto.PasswordConfirm))
-    {
-        throw new InvalidDataException("Passwords need to be the same.");
     }
 
-    var existingUser = await userManager.FindByEmailAsync(userDto.Email);
-    //if an user is not verified, remove the user.
-    if (existingUser != null && !existingUser.EmailConfirmed)
+    public class LoginHandler
     {
-        await userManager.DeleteAsync(existingUser); 
-    }
-    else if(existingUser != null)
-    {
-        // Check if a user with the same email already exists
-        throw new InvalidOperationException("A user with the given email already exists.");
-    }
-    var appUser = new ApplicationUser
-    {
-        UserName = userDto.Email,
-        Email = userDto.Email,
-        UserProfile = new UserProfile()
+        private readonly AuthHandler _authHandler;
+        public LoginHandler(AuthHandler authHandler)
         {
-            FirstName = userDto.FirstName,
-            LastName = userDto.LastName,
-            //SexualityId = string.IsNullOrEmpty(userDTO.SexualityId) ? null : Guid.Parse(userDTO.SexualityId),
-            //EthnicityId = string.IsNullOrEmpty(userDTO.EthnicityId) ? null : Guid.Parse(userDTO.EthnicityId),
-        },
-    };
-
-    var createResult = await userManager.CreateAsync(appUser, userDto.Password);
-
-    if (createResult.Succeeded)
-    {
-        var addToRoleResult = await userManager.AddToRoleAsync(appUser, "Student");
-        if (addToRoleResult.Succeeded)
-        {
-            return appUser;
+            _authHandler = authHandler;
         }
 
-        await userManager.DeleteAsync(appUser);
-        throw new InvalidOperationException("User registration failed.");
+        public async Task<AppContextResponse> HandleAsync(LoginRequest request)
+        {
+            var user = await _authHandler.UserManager.FindByEmailAsync(request.Username);
+            if (user != null)
+            {
+                var result = await _authHandler.UserManager.CheckPasswordAsync(user, request.Password);
+                var isEmailConfirmed = await _authHandler.UserManager.IsEmailConfirmedAsync(user);
+                if (result)
+                {
+                    if (isEmailConfirmed)
+                    {
+                        user.RefreshToken = AuthHelper.CreateRefreshToken();
+                        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddHours(24);
+                        await _authHandler.UserManager.UpdateAsync(user);
+                        var roles = await _authHandler.UserManager.GetRolesAsync(user);
+                        if (roles.Any())
+                        {
+                            var response = new AppContextResponse
+                            {
+                                Token = AuthHelper.CreateToken(user, roles.ToList(), _authHandler.Configuration),
+                                RefreshToken = user.RefreshToken,
+                                User = new UserReponse
+                                {
+                                    Id = user.Id.ToString(),
+                                    Email = user.Email!,
+                                    FirstName = user.UserProfile.FirstName,
+                                    LastName = user.UserProfile.LastName,
+                                    Roles = user.UserRoles.Where(n => n.Role.Name != null).Select(n => n.Role.Name!).ToList(),
+                                },
+                            };
+                            return response;
+                        }
+                        throw new InvalidOperationException("The user does not have a role.");
+                    }
+                    throw new InvalidOperationException("The user's email is not confirmed.");
+                }
+            }
+            throw new InvalidOperationException("Username or password incorrect.");
+        }
     }
-
-    throw new InvalidOperationException(createResult.Errors.Select(e => e.Description).FirstOrDefault());
 }
 ```
+Here is the login controller method.
+```csharp
+[Route("api/[controller]")]
+[ApiController]
+public abstract class AuthController(
+    RegisterHandler _registerHandler, IValidator<RegisterRequest> _registerValidator,
+    VerifyEmailHander _verifyEmailhandler, IValidator<VerifyEmailRequest> _verifyEmailValidator,
+    LoginHandler _loginHandler, IValidator<LoginRequest> _loginRequestValidator, 
+    RefreshHandler _refreshHandler, IValidator<RefreshRequest> _refreshRequestValidator, ILogger<AuthController> logger
+    ) : ControllerBase
+{
+    [HttpPost, Route("Login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+        var validatorResult = await _loginRequestValidator.ValidateAsync(request);
+        if (!validatorResult.IsValid)
+        {
+            return Problem(detail: "Invalide input", instance: null, StatusCodes.Status400BadRequest, title: "Bad Request",
+                    extensions: new Dictionary<string, object?>{
+                    { "erros", validatorResult.Errors.Select(n => n.ErrorMessage).ToArray()}
+                    });
+        }
+        try
+        {
+            return Ok(await _loginHandler.HandleAsync(request));
+        }
+        catch (Exception ex)
+        {
+            return Problem(detail: ex.Message, instance: null, 400, title: "Login Error", type: "Login Error");
+        }
+    }
+}
+
+```
+Note: I can also create new instances when I use handlers. In that way, I will not need to register handlers using DI.

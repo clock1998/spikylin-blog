@@ -287,7 +287,7 @@ public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Semester
 ```
 It leaks the business logic to the controller which is not good.
 
-Anothe problem is that DTOs are everywhere. They are in the controllers and repositories, and it is confusing when there are look-alike DTOs. I also find it hard to name them property for their specific use cases. For the chatting room alone, I already have four DTOs:
+Anothe problem is that DTOs are everywhere. They are in the controllers and repositories, and it is confusing when there are look-alike DTOs. I also find it hard to name them properly for their specific use cases. For the chatting room alone, I already have four DTOs:
 ![DTO](/post_images/refactor-clean-architecture-to-vertical-slice/DTO.png)
 
 The repository pattern has some benefits but I do not see it to scale well, besides it is not necessary if I use Entity Framework. There are too much abstraction and too many layers. The "Go To Implementation" feature does not work sometimes in Visual Studio. I can see when the project gets bigger it will be hard to maintain with different projects, file locations and abstractions.
