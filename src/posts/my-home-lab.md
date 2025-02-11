@@ -9,6 +9,7 @@ published: true
 featured: true
 ---
 
+![home lab](/post_images/my-home-lab2.jpg)
 ![home lab](/post_images/my-home-lab.jpg "Example")
 
 This is the version 1 of my home lab. The hardware I use is an old gaming computer that I built back in 2016. It has a I7-6800k cpu and 32 GB of memory. To better manage and utilize the hardware, I went with a hypervisor. My choice was Proxmox, a very popular OS in the home lab community. It is free, easy to use, and powerful. 
