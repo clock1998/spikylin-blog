@@ -47,3 +47,11 @@ git config --global user.email "MY_NAME@example.com"
 sudo lvextend -l 100%VG ubuntu-vg/ubuntu-lv
 sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
 ```
+
+## How to auto update ubuntu?
+
+``` shellscript
+sudo dpkg-reconfigure -plow unattended-upgrades
+sudo systemctl restart unattended-upgrades
+which unattended-upgrades
+```
