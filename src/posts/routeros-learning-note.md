@@ -56,3 +56,14 @@ A bridge is like a switch. There are serveral ports on a router and usually each
     AllowedIPs = 0.0.0.0/0
 
     Endpoint = domain or ip plus wireguard server port number
+
+6. Add a srcnat rule in Winbox:
+    Go to IP → Firewall → NAT.
+    Add a new rule:
+    Chain: srcnat
+    Src. Address: 10.0.0.0/24 (your WireGuard subnet).
+    Dst. Address: 192.168.1.0/24 (your LAN subnet).
+    Out. Interface: bridge (or whatever your LAN bridge is called).
+    Go to the Action tab.
+    Choose masquerade.
+    Apply and OK.
