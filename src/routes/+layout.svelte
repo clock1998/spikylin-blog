@@ -13,16 +13,10 @@
 	let { data, children }: { data: LayoutData, children: Snippet } = $props();
 
 	let showSidebar = $state(false);
-	let tags:string[]=[]
-	data.posts.forEach(n=>tags = tags.concat(n.tags));
-	let cleanedTags:string[] = $state([]);
-	cleanedTags = [...new Set(tags)];
 	let postsState = $state({ posts: data.posts });
 	setContext('postsState', postsState );
 
-	function tagClick(tag: string){
-		postsState.posts = data.posts.filter(n=>n.tags.includes(tag))
-	}
+
 </script>
 
 <ParaglideJS {i18n}>

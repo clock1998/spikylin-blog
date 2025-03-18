@@ -8,6 +8,13 @@
 
 	const postsState = getContext<{ posts: Post[] }>('postsState');
 	let posts: Post[] = $state([]);
+	let tags:string[] = $derived.by(() => {
+		let tags:string[] = []
+		for (const n of posts) {
+			tags = tags.concat(n.tags)
+		}
+		return [...new Set(tags)];
+	});
 	
 	$effect(() => {
 		if (languageTag() == availableLanguageTags[1]) {
@@ -16,12 +23,22 @@
 			posts = postsState.posts.filter((n) => n.slug.split('.')[1] !== 'fr');
 		}
 	});
+
+	function tagClick(tag: string){
+		posts = posts.filter(n=> n.tags == null ? null : n.tags.includes(tag))
+	}
 </script>
 
 <svelte:head>
 	<title>{config.title}</title>
 </svelte:head>
 <div class="mx-auto my-3 max-w-4xl">
+	<div class="flex flex-wrap justify-start items-start gap-1">
+		{#each tags as tag}
+			<button class="btn btn-sm" onclick={()=>tagClick(tag) }><span class="surface-4">&num;{tag}</span></button>
+		{/each}
+	</div>
+	
 	<div class="divider text-2xl font-semibold">Featured</div>
 	<ul class="list">
 		{#each posts.filter((n) => n.featured) as post}
