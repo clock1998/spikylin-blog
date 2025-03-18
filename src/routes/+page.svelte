@@ -4,7 +4,6 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { availableLanguageTags, languageTag } from '$lib/paraglide/runtime.js';
 	import { getContext } from 'svelte';
-	import PostCard from '$lib/components/post-card.svelte';
 	import type { Post } from '$lib/types';
 
 	const postsState = getContext<{ posts: Post[] }>('postsState');
