@@ -7,38 +7,17 @@
 	import NavbarFooter from '$lib/components/navbar-footer.svelte';
 	import { type Snippet } from 'svelte';
 	import { setContext } from 'svelte';
-	import Sidebar from '$lib/components/sidebar.svelte';
 	import { availableLanguageTags, languageTag } from '$lib/paraglide/runtime';
-
+	
 	let { data, children }: { data: LayoutData, children: Snippet } = $props();
-
-	let showSidebar = $state(false);
 	let postsState = $state({ posts: data.posts });
 	setContext('postsState', postsState );
-
-
 </script>
 
 <ParaglideJS {i18n}>
 	<div class="">
 		<Navbar></Navbar>
-		<button class="btn fixed z-20 top-1/2 px-1 " aria-label="asd" onclick={() => showSidebar=!showSidebar}>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 24 24"
-				class="inline-block w-6 stroke-current"
-				>
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M9 5l7 7-7 7"
-				/>
-			</svg>
-		</button>
 		<div class="container mx-auto">
-			<!-- <Sidebar {tagClick} tags={cleanedTags} showSidebar={showSidebar}></Sidebar> -->
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-4">
 				<div class="bg-base-200 flex flex-col items-center">
 					<div class="p-4"><img src="/about.jpg" alt="about" class="max-w-48 rounded-lg" /></div>
