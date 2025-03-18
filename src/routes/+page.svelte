@@ -23,14 +23,13 @@
 	<title>{config.title}</title>
 </svelte:head>
 <div class="mx-auto my-3 max-w-4xl">
-	<h3 class="text-2xl font-semibold ml-4">Featured</h3>
+	<div class="divider text-2xl font-semibold">Featured</div>
 	<ul class="list">
 		{#each posts.filter((n) => n.featured) as post}
 			<a href={post.slug}>
 				<li class="list-row">
-					<div>
-						<p class="text-xs font-semibold uppercase opacity-60">[{post.date}]</p>
-						<p>{post.title}</p>
+					<div class="prose">
+						<h4>[{post.date}] {post.title}</h4>
 						<p>{post.description}</p>
 						<div>
 							{#each post.tags as tag}
@@ -42,18 +41,16 @@
 			</a>
 		{/each}
 	</ul>
-	<h3 class="text-2xl font-semibold ml-4">Posts</h3>
+	<div class="divider text-2xl font-semibold">Posts</div>
 	<ul class="list">
 		{#each posts as post}
 			<a href={post.slug}>
 				<li class="list-row">
-					<div>
-						<p class="text-xs font-semibold uppercase opacity-60">[{post.date}] {post.title}</p>
-						<div>
-							{#each post.tags as tag}
-								<span class="px-1">&num;{tag}</span>
-							{/each}
-						</div>
+					<div class="prose">
+						<p>[{post.date}] {post.title}</p>
+						{#each post.tags as tag}
+							<span class="pr-1">&num;{tag}</span>
+						{/each}
 					</div>
 				</li>
 			</a>
