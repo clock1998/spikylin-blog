@@ -4,13 +4,12 @@
 	import * as m from '$lib/paraglide/messages.js';
 	import { availableLanguageTags, languageTag } from '$lib/paraglide/runtime.js';
 	import { getContext } from 'svelte';
-	import Carousel from '$lib/components/carousel.svelte';
 	import PostCard from '$lib/components/post-card.svelte';
 	import type { Post } from '$lib/types';
 
 	const postsState = getContext<{ posts: Post[] }>('postsState');
 	let posts: Post[] = $state([]);
-
+	
 	$effect(() => {
 		if (languageTag() == availableLanguageTags[1]) {
 			posts = postsState.posts.filter((n) => n.slug.split('.')[1] === 'fr');
@@ -24,20 +23,35 @@
 	<title>{config.title}</title>
 </svelte:head>
 <div class="mx-auto my-3 max-w-4xl">
-	<Carousel posts={posts.filter((n) => n.featured)} autoplay={true} interval={4000} />
-</div>
-
-<div class="mx-auto my-3 max-w-4xl">
+	<h3 class="text-2xl font-semibold ml-4">Featured</h3>
+	<ul class="list">
+		{#each posts.filter((n) => n.featured) as post}
+			<a href={post.slug}>
+				<li class="list-row">
+					<div>
+						<p class="text-xs font-semibold uppercase opacity-60">[{post.date}]</p>
+						<p>{post.title}</p>
+						<p>{post.description}</p>
+						<div>
+							{#each post.tags as tag}
+								<span class="px-1">&num;{tag}</span>
+							{/each}
+						</div>
+					</div>
+				</li>
+			</a>
+		{/each}
+	</ul>
+	<h3 class="text-2xl font-semibold ml-4">Posts</h3>
 	<ul class="list">
 		{#each posts as post}
 			<a href={post.slug}>
 				<li class="list-row">
 					<div>
-						<p class="text-xs font-semibold uppercase opacity-60">[{post.date}]</p>
-						{post.title}
+						<p class="text-xs font-semibold uppercase opacity-60">[{post.date}] {post.title}</p>
 						<div>
 							{#each post.tags as tag}
-								<span class="surface-4">&num;{tag}</span>
+								<span class="px-1">&num;{tag}</span>
 							{/each}
 						</div>
 					</div>
