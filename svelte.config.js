@@ -2,22 +2,25 @@ import { mdsvex, escapeSvelte } from 'mdsvex';
 import adapter from '@sveltejs/adapter-static';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import { createHighlighter } from 'shiki'
+
+// Create a single highlighter instance
+const highlighterPromise = createHighlighter({
+    themes: ['poimandres'],
+    langs: ['javascript', 'typescript','csharp', 'docker', 'html', 'json', 'mermaid', 'nginx', 'python', 'shellscript', 'sql', 'svelte', 'yaml']
+});
+
 /**
  * @type {import('mdsvex').MdsvexOptions}
  */
 const mdsvexOptions = {
-	extensions: ['.svx', '.md'],
-	highlight: {
-		highlighter: async (code, lang = 'text') => {
-			const highlighter = await createHighlighter({
-				themes: ['poimandres'],
-				langs: ['javascript', 'typescript','csharp', 'docker', 'html', 'json', 'mermaid', 'nginx', 'python', 'shellscript', 'sql', 'svelte', 'yaml']
-			})
-			await highlighter.loadLanguage('javascript', 'typescript', 'csharp', 'docker', 'html', 'json', 'mermaid', 'nginx', 'python', 'shellscript', 'sql', 'svelte', 'yaml')
-			const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme: 'poimandres' }))
-			return `{@html \`${html}\` }`
-		}
-	},
+    extensions: ['.svx', '.md'],
+    highlight: {
+        highlighter: async (code, lang = 'text') => {
+            const highlighter = await highlighterPromise;
+            const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme: 'poimandres' }))
+            return `{@html \`${html}\` }`
+        }
+    },
 }
 
 /** @type {import('@sveltejs/kit').Config} */
