@@ -12,5 +12,4 @@ featured: false
 - Ansible
 - Add featured post carousel for the blog page
 - React Native
-- Proof reading all blogs posts
 - Selfhosted Whisper.cpp
